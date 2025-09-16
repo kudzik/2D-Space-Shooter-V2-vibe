@@ -4,21 +4,23 @@ Przeglądarkowa gra 2D typu Space Shooter stworzona w Three.js z Web Audio API.
 
 ## 🎮 Opis gry
 
-Steruj zielonym statkiem kosmicznym, unikaj czerwonych wrogów i strzelaj do nich żółtymi pociskami. Zbieraj niebieskie power-upy dla szybszego strzelania!
+Steruj futurystycznym statkiem kosmicznym, unikaj wrogów i strzelaj do nich świecącymi pociskami. Zbieraj power-upy dla permanentnego zwiększenia szybkości strzelania!
 
 ## 🎯 Mechanika gry
 
 - **Punktacja**: 10 punktów za zniszczenie wroga
 - **Życia**: 3 życia na start
-- **Power-upy**: Szybsze strzelanie przez 10 sekund
-- **Wrogowie**: Spadają z góry co 2 sekundy
+- **Power-upy**: Permanentne zwiększenie szybkości strzelania o 20%
+- **Wrogowie**: Spadają z góry, częstotliwość rośnie z czasem
+- **Trudność**: Progresywnie zwiększa się (1% co sekundę)
 - **Kolizje**: Precyzyjne wykrywanie AABB
 
 ## 🎵 Dźwięki
 
-- 🔫 Strzał: Wysokie "pew"
-- 💥 Eksplozja: Niskie "boom" z echem
-- ⚡ Power-up: Melodyjny dźwięk wzrastający
+- 🔫 Strzał: Wysokie "pew" (800Hz)
+- 💥 Eksplozja: Niskie "boom" z echem (150Hz + 100Hz)
+- ⚡ Power-up: Melodyjny dźwięk wzrastający (600Hz → 800Hz → 1000Hz)
+- 🎛️ **Kontrola audio**: Przycisk Enable/Disable z futurystycznym stylem
 
 ## 🚀 Uruchamianie
 
@@ -34,11 +36,11 @@ npx serve .
 
 ## 🎮 Sterowanie
 
-| Klawisz | Funkcja |
-|---------|----------|
-| WASD / Strzałki | Ruch statku |
-| SPACJA | Strzał |
-| Enable Audio | Aktywacja dźwięków |
+| Klawisz         | Funkcja            |
+| --------------- | ------------------ |
+| WASD / Strzałki | Ruch statku        |
+| SPACJA          | Strzał             |
+| Enable Audio    | Aktywacja dźwięków |
 
 ## 🛠️ Technologie
 
@@ -54,19 +56,24 @@ npx serve .
 2D-Space-Shooter/
 ├── index.html         # Główna strona gry
 ├── game.js            # Logika gry (SpaceShooterGame)
-├── style.css          # Stylowanie UI
+├── style.css          # Futurystyczne stylowanie UI
 ├── debug.md           # Instrukcje debugowania
-├── assets/            # Folder na zasoby
+├── .gitignore         # Wykluczenia Git
+├── img/               # Tekstury obiektów
+│   ├── statek-gracza.png
+│   ├── enemy_1.png
+│   └── powerup.png
+├── assets/            # Folder na dodatkowe zasoby
 └── README.md          # Ta dokumentacja
 ```
 
 ## 🎨 Obiekty gry
 
-- 🟢 **Gracz**: Zielony prostokąt (0.5×1×0.2)
-- 🔴 **Wrogowie**: Czerwone prostokąty (0.6×0.8×0.2)
-- 🟡 **Pociski**: Żółte prostokąty (0.1×0.3×0.1)
-- 🔵 **Power-upy**: Niebieskie kostki (0.4×0.4×0.2)
-- ⭐ **Tło**: 1000 białych gwiazd
+- 🚀 **Gracz**: Sprite z tekstury `statek-gracza.png` (1×1.3)
+- 👾 **Wrogowie**: Sprite z tekstury `enemy_1.png` (1×1.4)
+- 🔥 **Pociski**: Świecące cylindry z efektem glow (pomarańczowe)
+- ⚡ **Power-upy**: Sprite z tekstury `powerup.png` (0.8×1.2)
+- ⭐ **Tło**: 1000 białych gwiazd w ruchu
 
 ## 🧪 Debugowanie
 
@@ -80,23 +87,56 @@ game.testShotCooldown();    // Test cooldownu
 
 ## 🎮 Funkcjonalności
 
-✅ Pełna mechanika gry  
-✅ System kolizji AABB  
-✅ Power-upy z efektami  
-✅ Dźwięki proceduralne  
-✅ Responsywny UI  
-✅ Restart bez przeładowania  
-✅ Funkcje debugowania  
+✅ Pełna mechanika gry z progresywną trudnością  
+✅ System kolizji AABB z precyzyjnym wykrywaniem  
+✅ Power-upy z permanentnym ulepszaniem (20% za każdy)  
+✅ Dźwięki proceduralne z Web Audio API  
+✅ Futurystyczny UI z czcionką Orbitron i efektami glow  
+✅ Restart bez przeładowania z pełnym resetem stanu  
+✅ Funkcje debugowania i testowania  
+✅ Tekstury 2D sprite'ów dla wszystkich obiektów  
+✅ System audio z kontrolą enable/disable  
+✅ Responsywny design z gradientami i animacjami  
 
-## 🚀 Możliwe rozszerzenia
+## 🚀 Zrealizowane funkcjonalności
 
-- Poziomy trudności
+✅ **Grafika**: Tekstury PNG dla wszystkich obiektów  
+✅ **Audio**: Proceduralne dźwięki z kontrolą  
+✅ **Trudność**: Progresywne zwiększanie częstotliwości wrogów  
+✅ **Power-upy**: Permanentne ulepszenia szybkości strzelania  
+✅ **UI**: Futurystyczny design z Orbitron i efektami  
+✅ **Gameplay**: Pełna mechanika z restart i Game Over  
+
+## 🔮 Możliwe rozszerzenia
+
 - High scores w localStorage
-- Różne typy broni
-- Animacje eksplozji
-- Multiplayer
-- Mobilne sterowanie
+- Różne typy broni i wrogów
+- Animacje eksplozji i efekty cząsteczkowe
+- Multiplayer przez WebRTC
+- Mobilne sterowanie touch
+- Poziomy i boss'y
+
+## 📈 Status projektu
+
+**Wersja**: 1.0 - Pełna funkcjonalność  
+**TODO**: Wszystkie główne zadania zakończone (✅ 100%)  
+**Ostatnia aktualizacja**: Dodano progresywną trudność i permanentne power-upy  
+
+### Zakończone sekcje TODO:
+- ✅ Struktura projektu
+- ✅ Inicjalizacja Three.js  
+- ✅ Gracz z teksturami
+- ✅ Strzały z efektami
+- ✅ Wrogowie z teksturami
+- ✅ Kolizje AABB
+- ✅ Punktacja i UI
+- ✅ Debugowanie i testy
+- ✅ Power-upy z teksturami
+- ✅ Dźwięki proceduralne
+- ✅ Grafika i tekstury
+- ✅ System audio
+- ✅ Organizacja projektu
 
 ## 📄 Licencja
 
-Projekt edukacyjny - wolne użycie.
+Projekt edukacyjny - MIT

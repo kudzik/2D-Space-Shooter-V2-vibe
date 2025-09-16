@@ -9,6 +9,7 @@ class SpaceShooterGame {
         this.powerUps = [];
         this.score = 0;
         this.lives = 3;
+        this.highScore = this.loadHighScore();
 
         this.playerSpeed = 0.1;
         this.bulletSpeed = 0.8;
@@ -414,6 +415,7 @@ class SpaceShooterGame {
     }
 
     updateUI() {
+        document.getElementById('highScore').textContent = `High Score: ${this.highScore}`;
         document.getElementById('score').textContent = `Score: ${this.score}`;
         document.getElementById('lives').textContent = `Lives: ${this.lives}`;
     }
@@ -434,6 +436,14 @@ class SpaceShooterGame {
 
     gameOver() {
         this.isGameOver = true;
+        
+        // Sprawdź i zapisz high score
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+            this.saveHighScore();
+            this.updateUI();
+            console.log(`New High Score: ${this.highScore}!`);
+        }
         
         // Zatrzymaj spawn wrogów i power-upów
         if (this.enemySpawnInterval) {
@@ -537,6 +547,15 @@ class SpaceShooterGame {
             this.shoot();
             console.log(`Bullets after cooldown: ${this.bullets.length} (should be +1 more)`);
         }, this.shotCooldown + 50);
+    }
+    
+    loadHighScore() {
+        const saved = localStorage.getItem('spaceShooterHighScore');
+        return saved ? parseInt(saved) : 0;
+    }
+    
+    saveHighScore() {
+        localStorage.setItem('spaceShooterHighScore', this.highScore.toString());
     }
 
     render() {

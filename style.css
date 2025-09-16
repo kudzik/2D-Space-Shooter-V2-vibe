@@ -29,6 +29,7 @@ body {
     z-index: 100;
 }
 
+#highScore,
 #score,
 #lives {
     font-size: 42px;
@@ -40,6 +41,14 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: 2px;
+}
+
+#highScore {
+    background: linear-gradient(45deg, #ffaa00, #ffff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 10px #ffaa00, 0 0 20px #ffaa00, 0 0 30px #ffaa00;
 }
 
 #audioBtn, #gameOver {
@@ -65,16 +74,16 @@ body {
 }
 
 #audioBtn.enabled {
-    background: linear-gradient(45deg, #002200, #004400);
-    color: #00ff88;
-    border-color: #00ff88;
-    text-shadow: 0 0 5px #00ff88;
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    background: linear-gradient(45deg, #002244, #004488);
+    color: #00ffff;
+    border-color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
 
 #audioBtn.enabled:hover {
-    background: linear-gradient(45deg, #003300, #006600);
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    background: linear-gradient(45deg, #003366, #0066aa);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
 }
 
 #gameOver {
