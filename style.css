@@ -18,40 +18,63 @@ body {
     height: 100%;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
 #ui {
     position: absolute;
     top: 20px;
     left: 20px;
     color: white;
-    font-size: 18px;
+    font-family: 'Orbitron', monospace;
     z-index: 100;
 }
 
-#score, #lives {
-    margin-bottom: 10px;
+#score,
+#lives {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+    background: linear-gradient(45deg, #00ffff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
 }
 
-#audioBtn {
-    background: #0066cc;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: 3px;
+#audioBtn, #gameOver {
+    background: linear-gradient(45deg, #001122, #003366);
+    color: #00ffff;
+    border: 2px solid #00ffff;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+    text-shadow: 0 0 5px #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
 }
 
 #audioBtn:hover {
-    background: #0052a3;
+    background: linear-gradient(45deg, #002244, #004488);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    transform: translateY(-1px);
 }
 
 #audioBtn.enabled {
-    background: #00aa00;
+    background: linear-gradient(45deg, #002200, #004400);
+    color: #00ff88;
+    border-color: #00ff88;
+    text-shadow: 0 0 5px #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
 #audioBtn.enabled:hover {
-    background: #008800;
+    background: linear-gradient(45deg, #003300, #006600);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
 }
 
 #gameOver {
@@ -59,30 +82,53 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
+    background: linear-gradient(135deg, rgba(0, 17, 34, 0.95), rgba(0, 51, 102, 0.95));
     color: white;
-    padding: 30px;
-    border-radius: 10px;
+    padding: 40px;
+    border-radius: 15px;
+    border: 2px solid #00ffff;
     text-align: center;
     z-index: 200;
+    font-family: 'Orbitron', monospace;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
 #gameOver h2 {
     margin-top: 0;
-    color: #ff0000;
+    font-size: 48px;
+    font-weight: 900;
+    color: #ff4444;
+    text-shadow: 0 0 15px #ff4444, 0 0 30px #ff4444;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+#gameOver p {
+    font-size: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+    margin-bottom: 25px;
 }
 
 #restartBtn {
-    background: #00ff00;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
+    background: linear-gradient(45deg, #004400, #008800);
+    color: #ffffff;
+    border: 2px solid #00ff88;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
     margin-top: 15px;
+    text-shadow: 0 0 5px #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
 }
 
 #restartBtn:hover {
-    background: #00cc00;
+    background: linear-gradient(45deg, #006600, #00aa00);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+    transform: translateY(-2px);
 }

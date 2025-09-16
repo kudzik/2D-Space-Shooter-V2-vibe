@@ -23,8 +23,10 @@ class SpaceShooterGame {
 
         this.keys = {};
         this.enemySpawnInterval = null;
+        this.powerUpSpawnInterval = null;
         this.audioContext = null;
         this.audioEnabled = false;
+        this.isGameOver = false;
         this.setupControls();
         this.initAudio();
     }
@@ -80,7 +82,7 @@ class SpaceShooterGame {
         const loader = new THREE.TextureLoader();
         const texture = loader.load('img/statek-gracza.png');
 
-        const geometry = new THREE.PlaneGeometry(1, 2);
+        const geometry = new THREE.PlaneGeometry(1, 1.3);
         const material = new THREE.MeshBasicMaterial({
             map: texture,
             transparent: true
@@ -104,13 +106,13 @@ class SpaceShooterGame {
     createEnemy() {
         const loader = new THREE.TextureLoader();
         const texture = loader.load('img/enemy_1.png');
-        
+
         const geometry = new THREE.PlaneGeometry(1, 1.4);
-        const material = new THREE.MeshBasicMaterial({ 
-            map: texture, 
-            transparent: true 
+        const material = new THREE.MeshBasicMaterial({
+            map: texture,
+            transparent: true
         });
-        
+
         const enemy = new THREE.Mesh(geometry, material);
         enemy.position.set(
             (Math.random() - 0.5) * 18, // Losowa pozycja X (-9 do 9)
@@ -132,15 +134,33 @@ class SpaceShooterGame {
         const now = Date.now();
         if (now - this.lastShot < this.shotCooldown) return;
 
-        const geometry = new THREE.BoxGeometry(0.1, 0.3, 0.1);
-        const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        // Główny pocisk
+        const geometry = new THREE.CylinderGeometry(0.05, 0.08, 0.4, 8);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xff971d,
+            emissive: 0xf6b900
+        });
         const bullet = new THREE.Mesh(geometry, material);
 
-        bullet.position.copy(this.player.position);
-        bullet.position.y += 0.6;
+        // Efekt świecenia
+        const glowGeometry = new THREE.SphereGeometry(0.12, 8, 8);
+        const glowMaterial = new THREE.MeshBasicMaterial({
+            color: 0xff7200,
+            transparent: true,
+            opacity: .8
+        });
+        const glow = new THREE.Mesh(glowGeometry, glowMaterial);
 
-        this.bullets.push(bullet);
-        this.scene.add(bullet);
+        // Grupuj pocisk z efektem
+        const bulletGroup = new THREE.Group();
+        bulletGroup.add(bullet);
+        bulletGroup.add(glow);
+
+        bulletGroup.position.copy(this.player.position);
+        bulletGroup.position.y += 0.6;
+
+        this.bullets.push(bulletGroup);
+        this.scene.add(bulletGroup);
 
         this.lastShot = now;
         this.playShootSound();
@@ -182,7 +202,7 @@ class SpaceShooterGame {
     }
 
     updatePlayer() {
-        if (!this.player) return;
+        if (!this.player || this.isGameOver) return;
 
         // Sterowanie WASD / strzałki
         if (this.keys['KeyW'] || this.keys['ArrowUp']) {
@@ -267,13 +287,13 @@ class SpaceShooterGame {
     createPowerUp() {
         const loader = new THREE.TextureLoader();
         const texture = loader.load('img/powerup.png');
-        
+
         const geometry = new THREE.PlaneGeometry(0.8, 1.2);
-        const material = new THREE.MeshBasicMaterial({ 
-            map: texture, 
-            transparent: true 
+        const material = new THREE.MeshBasicMaterial({
+            map: texture,
+            transparent: true
         });
-        
+
         const powerUp = new THREE.Mesh(geometry, material);
         powerUp.position.set(
             (Math.random() - 0.5) * 18,
@@ -286,7 +306,7 @@ class SpaceShooterGame {
     }
 
     startPowerUpSpawn() {
-        setInterval(() => {
+        this.powerUpSpawnInterval = setInterval(() => {
             if (Math.random() < 0.3) {
                 this.createPowerUp();
             }
@@ -401,9 +421,14 @@ class SpaceShooterGame {
     }
 
     gameOver() {
-        // Zatrzymaj spawn wrogów
+        this.isGameOver = true;
+        
+        // Zatrzymaj spawn wrogów i power-upów
         if (this.enemySpawnInterval) {
             clearInterval(this.enemySpawnInterval);
+        }
+        if (this.powerUpSpawnInterval) {
+            clearInterval(this.powerUpSpawnInterval);
         }
 
         document.getElementById('finalScore').textContent = `Final Score: ${this.score}`;
@@ -413,9 +438,12 @@ class SpaceShooterGame {
     }
 
     restartGame() {
-        // Zatrzymaj spawn wrogów
+        // Zatrzymaj spawn wrogów i power-upów
         if (this.enemySpawnInterval) {
             clearInterval(this.enemySpawnInterval);
+        }
+        if (this.powerUpSpawnInterval) {
+            clearInterval(this.powerUpSpawnInterval);
         }
 
         // Wyczyść scenę
@@ -434,6 +462,7 @@ class SpaceShooterGame {
         this.shotCooldown = this.baseShotCooldown;
         this.powerUpActive = false;
         this.powerUpEndTime = 0;
+        this.isGameOver = false;
 
         // Ukryj ekran Game Over
         document.getElementById('gameOver').style.display = 'none';
@@ -441,6 +470,7 @@ class SpaceShooterGame {
         // Stwórz gracza ponownie i wznowi spawn
         this.createPlayer();
         this.startEnemySpawn();
+        this.startPowerUpSpawn();
         this.updateUI();
 
         console.log('Game restarted successfully');
