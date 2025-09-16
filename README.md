@@ -29,14 +29,17 @@ Steruj futurystycznym statkiem kosmicznym, unikaj wrogów i strzelaj do nich św
 ## 🚀 Uruchamianie
 
 ### 🌐 Online (Polecane)
+
 **[Zagraj w przeglądarce](https://68c9492c0ed4cc3e874aa217--fanciful-kashata-b61883.netlify.app/)** - Gra dostępna na Netlify!
 
 ### 💻 Lokalnie
 
 #### Metoda 1: Bezpośrednio
+
 Otwórz `index.html` w przeglądarce
 
 #### Metoda 2: Lokalny serwer
+
 ```bash
 python3 -m http.server 8000
 # lub
@@ -133,6 +136,7 @@ game.testShotCooldown();    // Test cooldownu
 **Ostatnia aktualizacja**: Dodano high score system i wdrożono na Netlify  
 
 ### Zakończone sekcje TODO:
+
 - ✅ Struktura projektu
 - ✅ Inicjalizacja Three.js  
 - ✅ Gracz z teksturami
