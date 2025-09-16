@@ -24,6 +24,7 @@ class SpaceShooterGame {
         this.keys = {};
         this.enemySpawnInterval = null;
         this.audioContext = null;
+        this.audioEnabled = false;
         this.setupControls();
         this.initAudio();
     }
@@ -76,8 +77,15 @@ class SpaceShooterGame {
     }
 
     createPlayer() {
-        const geometry = new THREE.BoxGeometry(0.5, 1, 0.2);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const loader = new THREE.TextureLoader();
+        const texture = loader.load('img/statek-gracza.png');
+        
+        const geometry = new THREE.PlaneGeometry(1, 1);
+        const material = new THREE.MeshBasicMaterial({ 
+            map: texture, 
+            transparent: true 
+        });
+        
         this.player = new THREE.Mesh(geometry, material);
         this.player.position.set(0, -8, 0);
         this.scene.add(this.player);
@@ -309,7 +317,7 @@ class SpaceShooterGame {
     }
     
     createBeep(frequency, duration, volume = 0.1) {
-        if (!this.audioContext) return;
+        if (!this.audioContext || !this.audioEnabled) return;
         
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
@@ -344,13 +352,15 @@ class SpaceShooterGame {
     }
     
     enableAudio() {
+        this.audioEnabled = true;
         if (this.audioContext && this.audioContext.state === 'suspended') {
             this.audioContext.resume();
         }
         const btn = document.getElementById('audioBtn');
         btn.textContent = 'Audio ON';
         btn.classList.add('enabled');
-        btn.disabled = true;
+        btn.onclick = null;
+        console.log('Audio enabled');
     }
     
     isColliding(obj1, obj2) {
@@ -370,6 +380,11 @@ class SpaceShooterGame {
         // Obsługa przycisku restart
         document.getElementById('restartBtn').addEventListener('click', () => {
             this.restartGame();
+        });
+        
+        // Obsługa przycisku audio
+        document.getElementById('audioBtn').addEventListener('click', () => {
+            this.enableAudio();
         });
     }
     
