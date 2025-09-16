@@ -76,6 +76,33 @@
 - [ ] Dodaj poziomy trudności
 - [ ] Zapisuj high score w `localStorage`
 
+---
+
+### 🎨 Grafika i tekstury
+- [x] Dodaj teksturę gracza z pliku `statek-gracza.png`
+- [x] Zastąp model 3D gracza sprite'em 2D
+- [x] Dodaj teksturę wroga z pliku `enemy_1.png`
+- [x] Zastąp model 3D wroga sprite'em 2D
+- [x] Dodaj teksturę power-upu z pliku `powerup.png`
+- [x] Zastąp model 3D power-upu sprite'em 2D
+- [x] Dostosuj rozmiary obiektów (PlaneGeometry)
+
+---
+
+### 📁 Organizacja projektu
+- [x] Dodaj folder `img/` na tekstury
+- [x] Stwórz plik `.gitignore`
+- [x] Uzupełnij dokumentację README.md
+- [x] Dodaj instrukcje debugowania
+
+---
+
+### 🔧 System audio
+- [x] Implementuj Web Audio API
+- [x] Dodaj przycisk Enable/Disable audio
+- [x] Kontrola odtwarzania dźwięków flagą
+- [x] Dźwięki proceduralne (oscylatory)
+
 ```
 
 ---
