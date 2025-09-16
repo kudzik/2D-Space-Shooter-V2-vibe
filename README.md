@@ -1,5 +1,9 @@
 # 🚀 2D Space Shooter
 
+![Screenshot](./screen/Screenshot.png)
+
+**🎮 [ZAGRAJ TERAZ](https://68c9492c0ed4cc3e874aa217--fanciful-kashata-b61883.netlify.app/)** - Gra dostępna online!
+
 Przeglądarkowa gra 2D typu Space Shooter stworzona w Three.js z Web Audio API.
 
 ## 🎮 Opis gry
@@ -24,10 +28,15 @@ Steruj futurystycznym statkiem kosmicznym, unikaj wrogów i strzelaj do nich św
 
 ## 🚀 Uruchamianie
 
-### Metoda 1: Bezpośrednio
+### 🌐 Online (Polecane)
+**[Zagraj w przeglądarce](https://68c9492c0ed4cc3e874aa217--fanciful-kashata-b61883.netlify.app/)** - Gra dostępna na Netlify!
+
+### 💻 Lokalnie
+
+#### Metoda 1: Bezpośrednio
 Otwórz `index.html` w przeglądarce
 
-### Metoda 2: Lokalny serwer
+#### Metoda 2: Lokalny serwer
 ```bash
 python3 -m http.server 8000
 # lub
@@ -120,7 +129,8 @@ game.testShotCooldown();    // Test cooldownu
 
 **Wersja**: 1.0 - Pełna funkcjonalność  
 **TODO**: Wszystkie główne zadania zakończone (✅ 100%)  
-**Ostatnia aktualizacja**: Dodano progresywną trudność i permanentne power-upy  
+**Wdrożenie**: 🌐 [Dostępne online na Netlify](https://68c9492c0ed4cc3e874aa217--fanciful-kashata-b61883.netlify.app/)  
+**Ostatnia aktualizacja**: Dodano high score system i wdrożono na Netlify  
 
 ### Zakończone sekcje TODO:
 - ✅ Struktura projektu
