@@ -14,9 +14,12 @@ class SpaceShooterGame {
         this.bulletSpeed = 0.8;
         this.enemySpeed = 0.02;
         this.enemySpawnRate = 2000;
-        this.shotCooldown = 200;
-        this.baseShotCooldown = 200;
+        this.baseEnemySpawnRate = 2000;
+        this.shotCooldown = 1000;
+        this.baseShotCooldown = 1000;
+        this.fireRateMultiplier = 1.0;
         this.lastShot = 0;
+        this.gameStartTime = Date.now();
 
         this.powerUpActive = false;
         this.powerUpEndTime = 0;
@@ -127,7 +130,21 @@ class SpaceShooterGame {
     startEnemySpawn() {
         this.enemySpawnInterval = setInterval(() => {
             this.createEnemy();
+            this.updateDifficulty();
         }, this.enemySpawnRate);
+    }
+    
+    updateDifficulty() {
+        const gameTime = (Date.now() - this.gameStartTime) / 1000; // sekundy
+        const difficultyMultiplier = Math.max(0.3, 1 - (gameTime * 0.01)); // zmniejsza o 1% co sekundę
+        const newSpawnRate = Math.floor(this.baseEnemySpawnRate * difficultyMultiplier);
+        
+        if (newSpawnRate !== this.enemySpawnRate) {
+            this.enemySpawnRate = newSpawnRate;
+            clearInterval(this.enemySpawnInterval);
+            this.startEnemySpawn();
+            console.log(`Difficulty increased! Enemy spawn rate: ${this.enemySpawnRate}ms`);
+        }
     }
 
     shoot() {
@@ -326,18 +343,13 @@ class SpaceShooterGame {
     }
 
     activatePowerUp() {
-        this.shotCooldown = 50;
-        this.powerUpActive = true;
-        this.powerUpEndTime = Date.now() + 10000;
-        console.log('Power-up activated: Fast Shooting!');
+        this.fireRateMultiplier += 0.2;
+        this.shotCooldown = this.baseShotCooldown / this.fireRateMultiplier;
+        console.log(`Power-up collected! Fire rate: ${this.fireRateMultiplier.toFixed(1)}x`);
     }
 
     updatePowerUpStatus() {
-        if (this.powerUpActive && Date.now() > this.powerUpEndTime) {
-            this.shotCooldown = this.baseShotCooldown;
-            this.powerUpActive = false;
-            console.log('Power-up expired');
-        }
+        // Power-upy są teraz permanentne
     }
 
     initAudio() {
@@ -460,6 +472,9 @@ class SpaceShooterGame {
         this.lives = 3;
         this.lastShot = 0;
         this.shotCooldown = this.baseShotCooldown;
+        this.fireRateMultiplier = 1.0;
+        this.enemySpawnRate = this.baseEnemySpawnRate;
+        this.gameStartTime = Date.now();
         this.powerUpActive = false;
         this.powerUpEndTime = 0;
         this.isGameOver = false;
